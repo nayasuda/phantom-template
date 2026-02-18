@@ -1,0 +1,8 @@
+[allowlist]
+description = "False positives in documentation examples"
+regexes = [
+  # Dummy API keys used as examples in agent docs
+  '''sk-1234567890abcdef''',
+  '''ghp_YOUR_TOKEN_HERE''',
+  '''YOUR_GEMINI_API_KEY_HERE''',
+]
