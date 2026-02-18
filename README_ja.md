@@ -17,6 +17,8 @@
 
 ### 前提条件
 
+**動作確認済みOS:** Linux、macOS、Windows（WSL2 / Ubuntu 推奨）
+
 | ツール | バージョン | 用途 |
 |--------|-----------|------|
 | [Gemini CLI](https://github.com/google-gemini/gemini-cli) | 最新版 | メインランタイム |
@@ -24,6 +26,8 @@
 | [Python](https://python.org/) | 3.10以上 | スクリプト・フック |
 | [GitHub CLI](https://cli.github.com/) | 最新版 | GitHub 連携 |
 | [Git](https://git-scm.com/) | 最新版 | バージョン管理 |
+
+> **Windowsの方へ:** WSL2（Ubuntu 22.04）での動作を確認済みです。PowerShell ネイティブ環境は非対応です。
 
 **必要なサービス:**
 - Google Workspace（Gmail、Google Drive、Google Tasks）

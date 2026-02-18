@@ -17,6 +17,8 @@ Automate your daily operations with 10 specialized AI agents that collaborate, p
 
 ### Prerequisites
 
+**Supported OS:** Linux, macOS, Windows (WSL2 / Ubuntu recommended)
+
 | Tool | Version | Purpose |
 |------|---------|---------|
 | [Gemini CLI](https://github.com/google-gemini/gemini-cli) | latest | Core runtime |
@@ -24,6 +26,8 @@ Automate your daily operations with 10 specialized AI agents that collaborate, p
 | [Python](https://python.org/) | 3.10+ | Scripts & hooks |
 | [GitHub CLI](https://cli.github.com/) | latest | GitHub integration |
 | [Git](https://git-scm.com/) | latest | Version control |
+
+> **Windows users:** Tested on WSL2 (Ubuntu 22.04). Native PowerShell is not supported.
 
 **Required services:**
 - Google Workspace (Gmail, Google Drive, Google Tasks)
