@@ -18,9 +18,9 @@ from google_workspace import GoogleWorkspaceSkill
 CLASSIFICATION_RESULT_FILE = os.path.join(BASE_DIR, 'memory/mail_classification_result.json')
 
 JAPANESE_BUSINESS_SIGNATURE = """--------------------------------------------------
-メリービズ株式会社
-安田 夏基 (Natsuki Yasuda)
-email: natsuki.yasuda@merrybiz.jp
+{{COMPANY_NAME}}株式会社
+{{USER_FULLNAME}}
+email: {{USER_EMAIL}}
 --------------------------------------------------"""
 
 def save_classification_result(msg_id, category, reason):

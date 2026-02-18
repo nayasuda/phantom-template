@@ -15,8 +15,8 @@ def main():
     parser.add_argument('--dry-run', action='store_true', help='Display items to be archived without executing.')
     args = parser.parse_args()
 
-    owner = "nayasuda"
-    project_number = 1
+    owner = "{{GITHUB_USERNAME}}"
+    project_number = "{{PROJECT_NUMBER}}"
 
     print(f"Fetching items for project {project_number} (owner: {owner})...")
     cmd = f"gh project item-list {project_number} --owner {owner} --format json --limit 1000"

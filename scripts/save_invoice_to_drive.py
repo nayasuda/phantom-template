@@ -16,7 +16,7 @@ SCOPES = [
     'https://www.googleapis.com/auth/drive.file'
 ]
 TOKEN_FILE = 'token.json'
-SEARCH_QUERY = 'has:attachment filename:pdf after:2026/01/31 subject:(invoice OR 請求書) -from:merrybiz.jp -label:Invoices_Saved'
+SEARCH_QUERY = 'has:attachment filename:pdf after:2026/01/31 subject:(invoice OR 請求書) -from:{{COMPANY_DOMAIN}} -label:Invoices_Saved'
 LABEL_NAME = 'Invoices_Saved'
 
 # ログ設定

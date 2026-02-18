@@ -32,4 +32,4 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_PAT }}
         GOOGLE_CREDENTIALS_BASE64: ${{ secrets.GOOGLE_CREDENTIALS_BASE64 }}
         GOOGLE_TOKEN_BASE64: ${{ secrets.GOOGLE_TOKEN_BASE64 }}
-      run: python scripts/sync_google_tasks.py --owner nayasuda --repo multi-agent-phantom --no-create-issues
+      run: python scripts/sync_google_tasks.py --owner {{GITHUB_USERNAME}} --repo {{REPO_NAME}} --no-create-issues

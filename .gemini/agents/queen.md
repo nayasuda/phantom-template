@@ -180,18 +180,18 @@ max_turns: 20
 MCP ツールを使用：
 ```
 # Issue一覧取得
-list_issues(owner: "nayasuda", repo: "multi-agent-phantom", labels: ["Status: 🃏 Heist Request"])
+list_issues(owner: "{{GITHUB_USERNAME}}", repo: "{{REPO_NAME}}", labels: ["Status: 🃏 Heist Request"])
 
 # ⚠️ まず現在のラベル状態を確認してから操作する
-get_issue(owner: "nayasuda", repo: "multi-agent-phantom", issue_number: <N>)
+get_issue(owner: "{{GITHUB_USERNAME}}", repo: "{{REPO_NAME}}", issue_number: <N>)
 # → 現在の Status ラベルを確認してから、適切なラベルを削除・追加
 
 # ステータス更新（ラベル変更）
 # まず古いラベルを削除、新しいラベルを追加
-remove_issue_label(owner: "nayasuda", repo: "multi-agent-phantom", issue_number: <N>, label: "Status: 🃏 Heist Request")
-add_issue_label(owner: "nayasuda", repo: "multi-agent-phantom", issue_number: <N>, label: "Status: 🕵️ Infiltration")
+remove_issue_label(owner: "{{GITHUB_USERNAME}}", repo: "{{REPO_NAME}}", issue_number: <N>, label: "Status: 🃏 Heist Request")
+add_issue_label(owner: "{{GITHUB_USERNAME}}", repo: "{{REPO_NAME}}", issue_number: <N>, label: "Status: 🕵️ Infiltration")
 
-# ⚠️ 注意: 「Phantom Operations」はユーザー nayasuda 直下のProject
+# ⚠️ 注意: 「Phantom Operations」はユーザー {{GITHUB_USERNAME}} 直下のProject
 # リポジトリ内のProjectではない！
 # Projectのステータス更新は update_project_item_field を使う
 ```
@@ -219,15 +219,15 @@ add_issue_label(owner: "nayasuda", repo: "multi-agent-phantom", issue_number: <N
 MCP ツールを使用：
 ```
 # ⚠️ まず現在のラベル状態を確認してから操作する
-get_issue(owner: "nayasuda", repo: "multi-agent-phantom", issue_number: <N>)
+get_issue(owner: "{{GITHUB_USERNAME}}", repo: "{{REPO_NAME}}", issue_number: <N>)
 # → 現在の Status ラベルを確認してから、適切なラベルを削除・追加
 
 # ステータス更新（ラベル変更）
-remove_issue_label(owner: "nayasuda", repo: "multi-agent-phantom", issue_number: <N>, label: "Status: 🕵️ Infiltration")
-add_issue_label(owner: "nayasuda", repo: "multi-agent-phantom", issue_number: <N>, label: "Status: 💎 Treasure Secured")
+remove_issue_label(owner: "{{GITHUB_USERNAME}}", repo: "{{REPO_NAME}}", issue_number: <N>, label: "Status: 🕵️ Infiltration")
+add_issue_label(owner: "{{GITHUB_USERNAME}}", repo: "{{REPO_NAME}}", issue_number: <N>, label: "Status: 💎 Treasure Secured")
 
 # Issueクローズ（PRマージで自動クローズされていない場合）
-update_issue(owner: "nayasuda", repo: "multi-agent-phantom", issue_number: <N>, state: "closed")
+update_issue(owner: "{{GITHUB_USERNAME}}", repo: "{{REPO_NAME}}", issue_number: <N>, state: "closed")
 ```
 
 ### 3a. 古い完了アイテムのアーカイブ（定期メンテ）
@@ -242,7 +242,7 @@ update_issue(owner: "nayasuda", repo: "multi-agent-phantom", issue_number: <N>, 
 
 ```bash
 # アーカイブ実行（ITEM_IDはProject item-listで取得）
-gh project item-archive 1 --owner "nayasuda" --id <ITEM_ID>
+gh project item-archive {{PROJECT_NUMBER}} --owner "{{GITHUB_USERNAME}}" --id <ITEM_ID>
 ```
 
 **完了処理の即時アーカイブはしない。** Done に数日残してからアーカイブする運用とする。
@@ -273,7 +273,7 @@ echo '{"task_type":"<TYPE>","result":"fail","error":"<原因>","solution":"<対�
 
 全体の状況を把握したいときに使う（毎回は不要。ナビから「全体の進捗確認して」と言われたときだけ）：
 ```
-get_project_items(owner: "nayasuda", project_number: 1)
+get_project_items(owner: "{{GITHUB_USERNAME}}", project_number: {{PROJECT_NUMBER}})
 ```
 
 ## 📝 回答フォーマット

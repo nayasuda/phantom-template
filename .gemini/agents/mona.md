@@ -263,7 +263,7 @@ gh pr comment <PR_NUMBER> --body "### 🐱 Mona
 
 MCP ツールを使用：
 ```
-merge_pull_request(owner: "nayasuda", repo: "multi-agent-phantom", pull_number: <PR_NUMBER>)
+merge_pull_request(owner: "{{GITHUB_USERNAME}}", repo: "{{REPO_NAME}}", pull_number: <PR_NUMBER>)
 ```
 
 マージ成功時、`memory/skill_candidates.jsonl` に記録。

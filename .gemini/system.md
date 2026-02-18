@@ -527,7 +527,7 @@ GitHubでコメントする際は、以下のフォーマットを厳守する�
 
 ### ⚠️ 超重要: プロジェクトはユーザーレベル！
 
-**「Phantom Operations」はリポジトリ内のProjectではなく、ユーザー `nayasuda` 直下のProjectです。**
+**「Phantom Operations」はリポジトリ内のProjectではなく、ユーザー `{{GITHUB_USERNAME}}` 直下のProjectです。**
 **SoT（単一ソース）は Project v2。Issueは必要時のみ作成する。**
 
 ### Project項目作成（ナビの仕事）— 二重登録を防げ！
@@ -536,11 +536,11 @@ GitHubでコメントする際は、以下のフォーマットを厳守する�
 
 ```
 # パターンA: コード変更なし → draft item のみ
-gh project item-create 1 --owner "nayasuda" --title "機能の追加" --body "概要..."
+gh project item-create {{PROJECT_NUMBER}} --owner "{{GITHUB_USERNAME}}" --title "機能の追加" --body "概要..."
 
 # パターンB: コード変更あり → Issue を作って Project に追加（draftは作らない！）
 gh issue create --title "タイトル" --body "概要..."
-gh project item-add 1 --owner "nayasuda" --url "https://github.com/nayasuda/multi-agent-phantom/issues/<番号>"
+gh project item-add {{PROJECT_NUMBER}} --owner "{{GITHUB_USERNAME}}" --url "https://github.com/{{GITHUB_USERNAME}}/{{REPO_NAME}}/issues/<番号>"
 ```
 
 **判断フロー:**
@@ -617,7 +617,7 @@ No Status → Todo → In Progress → Done → (7日後) Archive
 - Done から **7日以上** 経過したアイテムは `sync_google_tasks.py` が **自動アーカイブ** する
 - 直近の完了アイテムは Done に残す（達成の可視化のため）
 - アーカイブは**削除ではない**。Project の「Archived items」からいつでも確認・復元可能
-- 手動でアーカイブしたい場合: `gh project item-archive 1 --owner "nayasuda" --id <ITEM_ID>`
+- 手動でアーカイブしたい場合: `gh project item-archive {{PROJECT_NUMBER}} --owner "{{GITHUB_USERNAME}}" --id <ITEM_ID>`
 
 ### Google Tasks ↔ Project v2 自動同期
 

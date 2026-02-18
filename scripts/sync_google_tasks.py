@@ -41,7 +41,7 @@ class GoogleTasksSync:
     DONE_OPTION_ID = '67fb16e8'
     DONE_STATUSES = {'Done'}
 
-    def __init__(self, owner="nayasuda", repo="multi-agent-phantom", create_issues=False):
+    def __init__(self, owner="{{GITHUB_USERNAME}}", repo="{{REPO_NAME}}", create_issues=False):
         # Validate environment variables
         if not os.environ.get("GITHUB_TOKEN") and not os.environ.get("GH_TOKEN"):
             # Warning only, as we might just want to update a task without GitHub sync
@@ -326,7 +326,7 @@ class GoogleTasksSync:
     def get_all_project_items(self):
         """Get all Project v2 items"""
         command = [
-            'gh', 'project', 'item-list', '1',
+            'gh', 'project', 'item-list', '{{PROJECT_NUMBER}}',
             '--owner', self.owner,
             '--format', 'json',
             '--limit', '1000'
@@ -927,7 +927,7 @@ class GoogleTasksSync:
     def get_project_done_items(self):
         """Get all Project v2 items with Status = 'Done'"""
         command = [
-            'gh', 'project', 'item-list', '1',
+            'gh', 'project', 'item-list', '{{PROJECT_NUMBER}}',
             '--owner', self.owner,
             '--format', 'json',
             '--limit', '500'
@@ -978,8 +978,8 @@ class GoogleTasksSync:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Sync Google Tasks with GitHub Project v2 (and optionally Issues)')
-    parser.add_argument('--owner', default='nayasuda', help='GitHub repository owner')
-    parser.add_argument('--repo', default='multi-agent-phantom', help='GitHub repository name')
+    parser.add_argument('--owner', default='{{GITHUB_USERNAME}}', help='GitHub repository owner')
+    parser.add_argument('--repo', default='{{REPO_NAME}}', help='GitHub repository name')
     parser.add_argument('--task_id', type=str, help='The ID of the task to update (optional)')
     parser.add_argument('--status', type=str, choices=['needsAction', 'completed'], help='The new status of the task (optional)')
     parser.add_argument(

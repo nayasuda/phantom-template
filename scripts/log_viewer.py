@@ -15,7 +15,7 @@ class Colors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-LOG_FILE = "/home/natsuki/multi-agent-phantom/memory/daily_log.jsonl"
+LOG_FILE = "{{PROJECT_DIR}}/memory/daily_log.jsonl"
 
 def print_header():
     title = "PHANTOM LOG VIEWER"

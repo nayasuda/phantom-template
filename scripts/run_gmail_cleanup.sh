@@ -2,7 +2,7 @@
 # Gmail auto-cleanup cron wrapper
 # Loads environment variables and runs auto_cleanup.py
 
-PROJECT_DIR="/home/natsuki/multi-agent-phantom"
+PROJECT_DIR="{{PROJECT_DIR}}"
 LOG_FILE="/tmp/gmail_cleanup.log"
 
 # Load environment variables from .gemini/.env

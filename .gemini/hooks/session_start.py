@@ -56,8 +56,8 @@ def fetch_project_tasks() -> list[dict]:
     """gh project item-list で全アクティブ項目を取得。失敗時は空リスト。"""
     try:
         result = subprocess.run(
-            ["gh", "project", "item-list", "1",
-             "--owner", "nayasuda", "--format", "json", "--limit", "200"],
+            ["gh", "project", "item-list", "{{PROJECT_NUMBER}}",
+             "--owner", "{{GITHUB_USERNAME}}", "--format", "json", "--limit", "200"],
             capture_output=True,
             text=True,
             timeout=15,

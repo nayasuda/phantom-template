@@ -460,8 +460,8 @@ def run_gh_command(args, capture_output=True):
 try:
     # Project に Issue を追加
     result = run_gh_command([
-        "project", "item-add", "1",
-        "--owner", "nayasuda",
+        "project", "item-add", "{{PROJECT_NUMBER}}",
+        "--owner", "{{GITHUB_USERNAME}}",
         "--url", issue_url
     ])
     print(f"追加成功: {result}")

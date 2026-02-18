@@ -641,7 +641,7 @@ def run_gh_command(args, check=True):
 
 # 使用例
 try:
-    output = run_gh_command(["project", "item-add", "1", "--owner", "nayasuda", "--url", issue_url])
+    output = run_gh_command(["project", "item-add", "{{PROJECT_NUMBER}}", "--owner", "{{GITHUB_USERNAME}}", "--url", issue_url])
     print(f"成功: {output}")
 except Exception as e:
     print(f"失敗: {e}")
