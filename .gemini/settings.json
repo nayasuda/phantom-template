@@ -1,0 +1,209 @@
+{
+  "general": {
+    "previewFeatures": true
+  },
+  "experimental": {
+    "enableAgents": true
+  },
+  "model": {
+    "name": "gemini-3-flash-preview"
+  },
+  "modelConfigs": {
+    "overrides": [
+      {
+        "match": { "overrideScope": "main" },
+        "modelConfig": {
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "high" },
+            "temperature": 0.2
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "queen" },
+        "modelConfig": {
+          "model": "gemini-3-pro-preview",
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "high" },
+            "temperature": 0.1
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "crow" },
+        "modelConfig": {
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "high" },
+            "temperature": 0.1
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "mona" },
+        "modelConfig": {
+          "model": "gemini-3-flash-preview",
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "medium" },
+            "temperature": 0.2
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "skull" },
+        "modelConfig": {
+          "model": "gemini-3-flash-preview",
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "low" },
+            "temperature": 0.1
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "fox" },
+        "modelConfig": {
+          "model": "gemini-3-flash-preview",
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "medium" },
+            "temperature": 0.3
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "panther" },
+        "modelConfig": {
+          "model": "gemini-3-flash-preview",
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "low" },
+            "temperature": 0.3
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "wolf" },
+        "modelConfig": {
+          "model": "gemini-3-flash-preview",
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "low" },
+            "temperature": 0.1
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "noir" },
+        "modelConfig": {
+          "model": "gemini-3-flash-preview",
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "low" },
+            "temperature": 0.1
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "violet" },
+        "modelConfig": {
+          "model": "gemini-3-flash-preview",
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "medium" },
+            "temperature": 0.2
+          }
+        }
+      },
+      {
+        "match": { "overrideScope": "sophie" },
+        "modelConfig": {
+          "model": "gemini-3-flash-preview",
+          "generateContentConfig": {
+            "thinkingConfig": { "thinkingLevel": "medium" },
+            "temperature": 0.2
+          }
+        }
+      }
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "name": "git-status-inject",
+            "type": "command",
+            "command": "python3 $GEMINI_PROJECT_DIR/.gemini/hooks/session_start.py",
+            "timeout": 20000,
+            "description": "セッション開始時にGit状態とProject v2タスクを自動注入"
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "name": "shell-command-logger",
+            "type": "command",
+            "command": "python3 $GEMINI_PROJECT_DIR/.gemini/hooks/log_shell_command.py",
+            "timeout": 5000,
+            "description": "シェルコマンド実行結果を自動ロギング"
+          },
+          {
+            "name": "branch-cleanup-helper",
+            "type": "command",
+            "command": "PHANTOM_AUTO_BRANCH_DELETE=1 python3 $GEMINI_PROJECT_DIR/.gemini/hooks/branch_cleanup.py",
+            "timeout": 8000,
+            "description": "PRマージ/同期後にブランチ掃除候補を提示（必要時のみ自動削除）"
+          }
+        ]
+      }
+    ],
+    "BeforeTool": [
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "name": "git-risky-command-blocker",
+            "type": "command",
+            "command": "python3 $GEMINI_PROJECT_DIR/.gemini/hooks/block_risky_git.py",
+            "timeout": 5000,
+            "description": "git add ./-A と汚れた状態での commit をブロック"
+          }
+        ]
+      },
+      {
+        "matcher": "write_file|replace",
+        "hooks": [
+          {
+            "name": "secret-blocker",
+            "type": "command",
+            "command": "python3 $GEMINI_PROJECT_DIR/.gemini/hooks/block_secrets.py",
+            "timeout": 5000,
+            "description": "ファイル書き込み時のシークレット漏洩防止"
+          }
+        ]
+      }
+    ],
+    "AfterAgent": []
+  },
+  "agents": {
+    "overrides": {
+      "codebase_investigator": {
+        "enabled": true,
+        "runConfig": {
+          "maxTurns": 20
+        },
+        "modelConfig": {
+          "model": "gemini-2.5-pro"
+        }
+      }
+    }
+  },
+  "mcpServers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "drawio": {
+      "command": "npx",
+      "args": ["-y", "@drawio/mcp"]
+    }
+  }
+}

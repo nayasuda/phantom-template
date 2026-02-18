@@ -1,0 +1,10 @@
+description = "受信トレイの未読メールを自動で分類・処理する (返信下書き、タスク作成、アーカイブ)"
+prompt = """
+受信トレイを整理して。以下の手順で実行してね:
+
+1. `python3 scripts/auto_cleanup.py` を実行
+2. 結果を報告
+
+もし auto_cleanup.py がない場合は、scripts/cleanup_inbox.py を代わりに使って。
+{{args}}
+"""

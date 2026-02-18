@@ -1,0 +1,137 @@
+# ========================================
+# Project Phantom - Policy Engine設定
+# ========================================
+# このファイルは起動時に ~/.gemini/policies/ にコピーされる
+#
+# 【方針】
+# - 読み取り系: 全て許可
+# - ファイル書き込み: 許可（Sub-agentsのtools制限で安全性担保）
+# - Git操作（安全なもの）: 許可
+# - Git操作（破壊的なもの）: 確認
+# - 危険なコマンド: 拒否
+
+# ----------------------------------------
+# 読み取り系: 全て許可
+# ----------------------------------------
+[[rule]]
+toolName = ["read_file", "search_file_content", "glob", "list_directory"]
+decision = "allow"
+priority = 100
+
+# ----------------------------------------
+# ファイル書き込み: 許可
+# （Sub-agentsのtools制限でskull/panther以外は書き込みできないので安全）
+# ----------------------------------------
+[[rule]]
+toolName = ["write_file", "replace"]
+decision = "allow"
+priority = 150
+
+# ----------------------------------------
+# Git操作（安全）: 許可
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["git status", "git log", "git branch", "git diff", "git show", "git remote", "git fetch"]
+decision = "allow"
+priority = 220
+
+# ----------------------------------------
+# Git操作（通常）: 許可
+# ブランチ作成、コミット、チェックアウトは日常操作なので許可
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["git checkout", "git add", "git commit", "git stash", "git merge", "git rebase"]
+decision = "allow"
+priority = 210
+
+# ----------------------------------------
+# Git Push: 確認付き（リモートへの反映は確認したい）
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["git push", "git pull"]
+decision = "ask_user"
+priority = 200
+
+# ----------------------------------------
+# npm/node操作: 許可
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["npm ", "npx ", "node "]
+decision = "allow"
+priority = 180
+
+# ----------------------------------------
+# GitHub CLI (gh): 許可（Project v2操作、Issue/PR管理）
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "gh "
+decision = "allow"
+priority = 175
+
+# ----------------------------------------
+# clasp操作: 許可（GAS外部デプロイ用）
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["clasp ", "clasp push", "clasp pull", "clasp status"]
+decision = "allow"
+priority = 175
+
+# ----------------------------------------
+# Python/pip操作: 許可（スクリプト実行用）
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["python ", "python3 ", "pip ", "pip3 "]
+decision = "allow"
+priority = 175
+
+# ----------------------------------------
+# 安全なコマンド: 許可
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["ls", "pwd", "cat ", "head ", "tail ", "echo ", "date", "which ", "mkdir ", "cp ", "mv "]
+decision = "allow"
+priority = 170
+
+# ----------------------------------------
+# 危険なシェルコマンド: 拒否
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["rm -rf /", "rm -rf ~", "rm -rf .", "sudo rm -rf", "chmod 777", ":(){ :|:& };:"]
+decision = "deny"
+priority = 500
+deny_message = "危険なコマンドは禁止されています。"
+
+# ----------------------------------------
+# rm: 確認付き（ファイル削除は確認）
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "rm "
+decision = "ask_user"
+priority = 300
+
+# ----------------------------------------
+# sudo: 確認付き
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "sudo "
+decision = "ask_user"
+priority = 400
+
+# ----------------------------------------
+# その他のシェルコマンド: 許可（skull しか実行できないので安全）
+# ----------------------------------------
+[[rule]]
+toolName = "run_shell_command"
+decision = "allow"
+priority = 50

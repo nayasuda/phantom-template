@@ -1,0 +1,14 @@
+description = "Create a Draw.io swimlane diagram from process description and upload to Google Drive."
+prompt = """
+Activate the `drawio_swimlane_generator` skill and create a Draw.io swimlane diagram based on the user's input.
+
+1. **Wait for Input**: If the user hasn't provided a process description yet, ask for it.
+2. **Generate XML**: Create a valid Draw.io XML using the MerryBiz color scheme (`#00abdc`), `stackLayout`, and NO `<Array points="...">` tags.
+3. **Save**: Write the XML to a temporary file (e.g., `tmp/diagram.drawio`).
+4. **Upload**: Use `scripts/save_to_drive.py` to upload the file to Google Drive folder "Phantom Uploads".
+5. **Clean Up**: Delete the temporary file.
+6. **Report**: Provide the Google Drive link and Draw.io direct link to the user.
+
+User Input / Process Description:
+{{args}}
+"""

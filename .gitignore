@@ -1,0 +1,36 @@
+# Environment files (secrets)
+.gemini/.env
+phantom-antenna/.env
+
+# Auth / credentials
+credentials.json
+token.json
+
+# Runtime logs (hooks が自動書き込みするため追跡不要)
+memory/daily_log.jsonl
+memory/mail_classification_result.json
+memory/skill_candidates.jsonl
+.gemini/tmp/
+tmp/
+backups/
+project_items.json
+pr_*.diff
+reports/daily/
+.github/commands/
+.github/workflows/gemini-*.yml
+
+# Python
+phantom-antenna/venv/
+__pycache__/
+*.pyc
+
+# Editor / OS
+*.swp
+*.bak
+.DS_Store
+
+gha-creds-*.json
+firebase-debug.log
+.coverage
+*.drawio
+slack_channels.csv

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "google_calendar_list",
+    "description": "Lists upcoming Google Calendar events for the specified number of days.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "days": {
+          "type": "integer",
+          "description": "Number of days to look ahead (default: 7)"
+        }
+      },
+      "required": []
+    },
+    "tool_code": "run_shell_command(command='python3 phantom-antenna/src/skills/google_workspace.py --action events --days ' + str(days))"
+  },
+  {
+    "name": "google_tasks_list",
+    "description": "Lists all incomplete Google Tasks.",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "tool_code": "run_shell_command(command='python3 phantom-antenna/src/skills/google_workspace.py --action tasks')"
+  }
+]

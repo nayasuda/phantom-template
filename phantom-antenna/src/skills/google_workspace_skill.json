@@ -1,0 +1,223 @@
+{
+  "list_upcoming_events": {
+    "description": "Lists upcoming calendar events for the next N days.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "days": {
+          "type": "integer",
+          "description": "Number of days to look ahead (default: 7)"
+        }
+      },
+      "required": []
+    }
+  },
+  "create_calendar_event": {
+    "description": "Creates a new event in Google Calendar.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "The title of the event."
+        },
+        "start_time": {
+          "type": "string",
+          "description": "Start time in ISO 8601 format (e.g., 2026-02-10T10:00:00+09:00)."
+        },
+        "end_time": {
+          "type": "string",
+          "description": "End time in ISO 8601 format."
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description of the event."
+        },
+        "location": {
+          "type": "string",
+          "description": "Optional location of the event."
+        }
+      },
+      "required": [
+        "summary",
+        "start_time",
+        "end_time"
+      ]
+    }
+  },
+  "list_incomplete_tasks": {
+    "description": "Lists all incomplete tasks from Google Tasks.",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  "get_freebusy": {
+    "description": "Query free/busy information for a set of calendars.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "calendars": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of calendar IDs to query."
+        },
+        "time_min": {
+          "type": "string",
+          "description": "Start time in ISO 8601 format."
+        },
+        "time_max": {
+          "type": "string",
+          "description": "End time in ISO 8601 format."
+        }
+      },
+      "required": ["calendars", "time_min", "time_max"]
+    }
+  },
+  "list_recent_emails": {
+    "description": "Lists recent emails (text format summary).",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "max_results": {
+          "type": "integer",
+          "description": "Maximum number of emails to return (default: 30)"
+        }
+      },
+      "required": []
+    }
+  },
+  "list_emails": {
+    "description": "Lists emails from Gmail inbox with details (JSON format).",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "max_results": {
+          "type": "integer",
+          "description": "Maximum number of emails to return (default: 30)"
+        }
+      },
+      "required": []
+    }
+  },
+  "create_gmail_draft": {
+    "description": "Creates a draft in Gmail.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "to": { "type": "string" },
+        "subject": { "type": "string" },
+        "body": { "type": "string" }
+      },
+      "required": ["to", "subject", "body"]
+    }
+  },
+  "create_reply_draft": {
+    "description": "Creates a reply draft for a specific Gmail message, maintaining the thread.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "message_id": {
+          "type": "string",
+          "description": "The ID of the message to reply to."
+        },
+        "reply_text": {
+          "type": "string",
+          "description": "The body of the reply."
+        },
+        "signature": {
+          "type": "string",
+          "description": "Optional signature to append to the reply."
+        }
+      },
+      "required": ["message_id", "reply_text"]
+    }
+  },
+  "add_task_from_email": {
+    "description": "Creates a Google Task from a Gmail message, including a link to the email.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "message_id": {
+          "type": "string",
+          "description": "The ID of the message to create a task from."
+        },
+        "title": {
+          "type": "string",
+          "description": "Optional custom title for the task. Defaults to email subject."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional additional notes for the task."
+        }
+      },
+      "required": ["message_id"]
+    }
+  },
+  "ensure_phantom_labels": {
+    "description": "Ensures that required Phantom labels exist in Gmail.",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  "modify_email_labels": {
+    "description": "Modifies labels on a Gmail message.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "message_id": {
+          "type": "string",
+          "description": "The ID of the message to modify."
+        },
+        "add_labels": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of label IDs to add."
+        },
+        "remove_labels": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of label IDs to remove."
+        }
+      },
+      "required": ["message_id"]
+    }
+  },
+  "archive_email": {
+    "description": "Archives a Gmail message by removing the 'INBOX' label.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "message_id": {
+          "type": "string",
+          "description": "The ID of the message to archive."
+        }
+      },
+      "required": ["message_id"]
+    }
+  },
+  "list_labels": {
+    "description": "Lists all available labels in Gmail.",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  "mark_email_as_done": {
+    "description": "Marks an email as done (adds '4. 対応完了', removes '0. Phantom/To-Do' and 'INBOX').",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "message_id": {
+          "type": "string",
+          "description": "The ID of the message to mark as done."
+        }
+      },
+      "required": ["message_id"]
+    }
+  }
+}
