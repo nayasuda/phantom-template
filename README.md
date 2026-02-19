@@ -51,7 +51,11 @@ bash setup.sh
 npm install -g @google/gemini-cli
 
 # 5. Launch!
-gemini
+bash phantom_startup.sh
+tmux attach -t phantom:main
+
+# To quit: type /quit in Gemini CLI, then:
+bash phantom_shutdown.sh
 ```
 
 ## 🎭 The Agents

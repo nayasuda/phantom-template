@@ -51,7 +51,11 @@ bash setup.sh
 npm install -g @google/gemini-cli
 
 # 5. 起動！
-gemini
+bash phantom_startup.sh
+tmux attach -t phantom:main
+
+# 停止するときは Gemini CLI 内で /quit → その後:
+bash phantom_shutdown.sh
 ```
 
 ## 🎭 エージェント紹介
@@ -88,10 +92,15 @@ phantom-template/
 
 ## 🎮 使い方
 
-Gemini CLI を起動すると、ナビが状況を確認してくれます。
+起動スクリプトを使ってナビを起動します。
 
 ```bash
-gemini
+# 起動
+bash phantom_startup.sh
+tmux attach -t phantom:main
+
+# 停止（Gemini CLI 内で /quit してから）
+bash phantom_shutdown.sh
 ```
 
 ### 主なコマンド
