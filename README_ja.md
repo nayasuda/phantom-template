@@ -135,6 +135,7 @@ bash phantom_shutdown.sh
 
 ## 📚 詳細ドキュメント
 
+- [💡 これ何ができるの？（具体的なユースケース）](docs/what_can_phantom_do.md)
 - [🔰 はじめてのセットアップ（非エンジニア向け）](docs/setup/00_quickstart_for_beginners.md)
 - [前提条件・環境準備](docs/setup/01_prerequisites.md)
 - [Google OAuth 設定](docs/setup/02_google_oauth.md)
