@@ -1,7 +1,4 @@
 {
-  "general": {
-    "previewFeatures": true
-  },
   "experimental": {
     "enableAgents": true
   },
@@ -11,109 +8,153 @@
   "modelConfigs": {
     "overrides": [
       {
-        "match": { "overrideScope": "main" },
+        "match": {
+          "overrideScope": "main"
+        },
         "modelConfig": {
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "high" },
+            "thinkingConfig": {
+              "thinkingLevel": "high"
+            },
             "temperature": 0.2
           }
         }
       },
       {
-        "match": { "overrideScope": "queen" },
+        "match": {
+          "overrideScope": "queen"
+        },
         "modelConfig": {
           "model": "gemini-3-pro-preview",
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "high" },
+            "thinkingConfig": {
+              "thinkingLevel": "high"
+            },
             "temperature": 0.1
           }
         }
       },
       {
-        "match": { "overrideScope": "crow" },
+        "match": {
+          "overrideScope": "crow"
+        },
         "modelConfig": {
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "high" },
+            "thinkingConfig": {
+              "thinkingLevel": "high"
+            },
             "temperature": 0.1
           }
         }
       },
       {
-        "match": { "overrideScope": "mona" },
+        "match": {
+          "overrideScope": "mona"
+        },
         "modelConfig": {
           "model": "gemini-3-flash-preview",
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "medium" },
+            "thinkingConfig": {
+              "thinkingLevel": "medium"
+            },
             "temperature": 0.2
           }
         }
       },
       {
-        "match": { "overrideScope": "skull" },
+        "match": {
+          "overrideScope": "skull"
+        },
         "modelConfig": {
           "model": "gemini-3-flash-preview",
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "low" },
+            "thinkingConfig": {
+              "thinkingLevel": "low"
+            },
             "temperature": 0.1
           }
         }
       },
       {
-        "match": { "overrideScope": "fox" },
+        "match": {
+          "overrideScope": "fox"
+        },
         "modelConfig": {
           "model": "gemini-3-flash-preview",
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "medium" },
+            "thinkingConfig": {
+              "thinkingLevel": "medium"
+            },
             "temperature": 0.3
           }
         }
       },
       {
-        "match": { "overrideScope": "panther" },
+        "match": {
+          "overrideScope": "panther"
+        },
         "modelConfig": {
           "model": "gemini-3-flash-preview",
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "low" },
+            "thinkingConfig": {
+              "thinkingLevel": "low"
+            },
             "temperature": 0.3
           }
         }
       },
       {
-        "match": { "overrideScope": "wolf" },
+        "match": {
+          "overrideScope": "wolf"
+        },
         "modelConfig": {
           "model": "gemini-3-flash-preview",
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "low" },
+            "thinkingConfig": {
+              "thinkingLevel": "low"
+            },
             "temperature": 0.1
           }
         }
       },
       {
-        "match": { "overrideScope": "noir" },
+        "match": {
+          "overrideScope": "noir"
+        },
         "modelConfig": {
           "model": "gemini-3-flash-preview",
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "low" },
+            "thinkingConfig": {
+              "thinkingLevel": "low"
+            },
             "temperature": 0.1
           }
         }
       },
       {
-        "match": { "overrideScope": "violet" },
+        "match": {
+          "overrideScope": "violet"
+        },
         "modelConfig": {
           "model": "gemini-3-flash-preview",
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "medium" },
+            "thinkingConfig": {
+              "thinkingLevel": "medium"
+            },
             "temperature": 0.2
           }
         }
       },
       {
-        "match": { "overrideScope": "sophie" },
+        "match": {
+          "overrideScope": "sophie"
+        },
         "modelConfig": {
           "model": "gemini-3-flash-preview",
           "generateContentConfig": {
-            "thinkingConfig": { "thinkingLevel": "medium" },
+            "thinkingConfig": {
+              "thinkingLevel": "medium"
+            },
             "temperature": 0.2
           }
         }
@@ -203,7 +244,10 @@
     },
     "drawio": {
       "command": "npx",
-      "args": ["-y", "@drawio/mcp"]
+      "args": [
+        "-y",
+        "@drawio/mcp"
+      ]
     }
   }
 }
