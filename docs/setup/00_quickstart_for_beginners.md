@@ -151,7 +151,7 @@ gh auth login
 
 ```bash
 cd ~
-git clone https://github.com/{{GITHUB_USERNAME}}/phantom-template.git
+git clone https://github.com/nayasuda/phantom-template.git
 cd phantom-template
 ```
 
