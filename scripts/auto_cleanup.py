@@ -11,6 +11,20 @@ import google.generativeai as genai
 
 # Define base directory (project root)
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
+
+# Load .gemini/.env so GEMINI_API_KEY and other keys are available
+_env_path = os.path.join(BASE_DIR, '.gemini', '.env')
+if os.path.exists(_env_path):
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(_env_path)
+    except ImportError:
+        with open(_env_path) as _f:
+            for _line in _f:
+                _line = _line.strip()
+                if _line and not _line.startswith('#') and '=' in _line:
+                    _k, _v = _line.split('=', 1)
+                    os.environ.setdefault(_k.strip(), _v.strip())
 sys.path.append(os.path.join(BASE_DIR, 'phantom-antenna/src/skills'))
 from google_workspace import GoogleWorkspaceSkill
 
