@@ -58,6 +58,10 @@ tmux attach -t phantom:main
 bash phantom_shutdown.sh
 ```
 
+> **💡 ナビが起動したら `/initial_setup` と入力！**
+> Google OAuth・GitHub Secrets・Actions スケジュール有効化をナビと一緒に進められます。
+> 各ステップで「続ける / スキップ / 中断」を選べるので、途中でやめても大丈夫です。
+
 ## 🎭 エージェント紹介
 
 | エージェント | 役割 | 得意分野 |
@@ -102,6 +106,8 @@ tmux attach -t phantom:main
 # 停止（Gemini CLI 内で /quit してから）
 bash phantom_shutdown.sh
 ```
+
+**初回起動後は `/initial_setup` で初期設定をナビと進めましょう。**
 
 ### 主なコマンド
 

@@ -58,6 +58,10 @@ tmux attach -t phantom:main
 bash phantom_shutdown.sh
 ```
 
+> **💡 Once Navi starts, type `/initial_setup`!**
+> Navi will guide you through Google OAuth, GitHub Secrets, and enabling scheduled Actions — step by step.
+> You can skip or pause any step and resume later by running `/initial_setup` again.
+
 ## 🎭 The Agents
 
 | Agent | Role | Specialty |

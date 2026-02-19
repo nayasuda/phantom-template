@@ -1,0 +1,106 @@
+description = "初回セットアップをナビと一緒にステップバイステップで進める"
+prompt = """
+初回セットアップウィザードを開始する。
+ジョーカーと一緒に各ステップを確認しながら進め。
+**各ステップの前に必ず ask_user で確認を取り、スキップや中断を選べるようにすること。**
+途中でやめたい場合は「中断する」を選べばいつでも止まれることを最初に伝えること。
+
+---
+
+## はじめに（必ず最初に伝える）
+
+「初回セットアップウィザードを開始します！
+各ステップで『続ける』『スキップ』『ここで中断する』を選べます。
+途中で止めても次回 /initial_setup で再開できます。」
+
+---
+
+## ステップ 1: Gemini API キーの確認
+
+1. `.gemini/.env` を確認し、`GEMINI_API_KEY` が設定されているか確認する
+2. ask_user で状況を確認:
+   - 質問: 「STEP 1/5: Gemini API キーは設定済みですか？」
+   - 選択肢: 「✅ 設定済み（次へ）」「⚙️ まだ（設定方法を教えて）」「⏭️ スキップ」「🛑 ここで中断」
+3. 「まだ」を選んだ場合:
+   - https://aistudio.google.com/apikey からキーを取得する手順を教える
+   - `.gemini/.env` の `GEMINI_API_KEY=` に貼り付けるよう案内する
+   - 設定できたか再確認する
+
+---
+
+## ステップ 2: Google OAuth 認証
+
+1. ask_user で確認:
+   - 質問: 「STEP 2/5: Google OAuth 認証を実行しますか？（Gmail / Google Tasks 連携に必要です）」
+   - 選択肢: 「✅ 実行する」「⏭️ スキップ（後でやる）」「🛑 ここで中断」
+2. 「実行する」を選んだ場合:
+   - `python scripts/generate_token.py` を実行する
+   - ブラウザが開いてGoogle認証が始まることを伝える
+   - 認証後 `token.json` が生成されることを確認する
+   - エラーが出た場合は `docs/setup/02_google_oauth.md` を参照するよう案内する
+
+---
+
+## ステップ 3: GitHub CLI 認証の確認
+
+1. `gh auth status` を実行して GitHub CLI が認証済みか確認する
+2. ask_user で確認:
+   - 質問: 「STEP 3/5: GitHub CLI の状態を確認しました。次のステップ（GitHub Secrets 登録）に進みますか？」
+   - 選択肢: 「✅ 進む」「⚙️ gh auth login から始める」「⏭️ スキップ」「🛑 ここで中断」
+3. 未認証の場合:
+   - `gh auth login` を実行して対話的にログインするよう案内する
+
+---
+
+## ステップ 4: GitHub Secrets の登録
+
+GitHub Actions (sync_tasks) が動くために必要な3つの Secret を登録する。
+
+1. ask_user で確認:
+   - 質問: 「STEP 4/5: GitHub Secrets を登録します。以下の3つを登録します：\n• GH_PAT（GitHub Personal Access Token）\n• GOOGLE_CREDENTIALS_BASE64\n• GOOGLE_TOKEN_BASE64\n準備できていますか？」
+   - 選択肢: 「✅ 登録する」「⏭️ スキップ（後でやる）」「🛑 ここで中断」
+2. 「登録する」を選んだ場合、以下を順番に実行:
+
+   **GH_PAT の登録:**
+   - GitHub の https://github.com/settings/tokens から PAT を発行する手順を説明
+   - 必要なスコープ: `repo`, `project`
+   - ask_user で「PATを取得しましたか？」を確認してから:
+     `gh secret set GH_PAT --repo <リポジトリ名>` を実行
+
+   **GOOGLE_CREDENTIALS_BASE64 の登録:**
+   - `base64 -w 0 credentials.json` の出力を Secret に登録:
+     `gh secret set GOOGLE_CREDENTIALS_BASE64 --repo <リポジトリ名>`
+
+   **GOOGLE_TOKEN_BASE64 の登録:**
+   - `base64 -w 0 token.json` の出力を Secret に登録:
+     `gh secret set GOOGLE_TOKEN_BASE64 --repo <リポジトリ名>`
+
+3. 登録完了後、`gh secret list --repo <リポジトリ名>` で確認する
+
+---
+
+## ステップ 5: GitHub Actions のスケジュール有効化
+
+1. ask_user で確認:
+   - 質問: 「STEP 5/5: sync_tasks.yml のスケジュール実行を有効化しますか？（Google Tasks ↔ GitHub Project の自動同期）」
+   - 選択肢: 「✅ 有効化する」「⏭️ スキップ（後でやる）」「🛑 ここで中断」
+2. 「有効化する」を選んだ場合:
+   - `.github/workflows/sync_tasks.yml` の schedule のコメントアウトを外す
+   - git commit & push する
+   - GitHub Actions タブで確認する方法を案内する
+
+---
+
+## 完了メッセージ
+
+すべてのステップが完了（またはスキップ）したら:
+
+「🎉 初回セットアップ完了です！
+スキップしたステップがある場合は /initial_setup をいつでも再実行できます。
+次のステップ:
+• `/mission` でナビに最初のミッションを伝えてみよう
+• `/queen_plan` で計画を立ててみよう
+何か困ったことがあればナビに聞いてください！」
+
+追加の指示: {{args}}
+"""
