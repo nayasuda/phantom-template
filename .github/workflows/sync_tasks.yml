@@ -1,8 +1,10 @@
 name: Sync Google Tasks
 
 on:
-  schedule:
-    - cron: '*/30 0-9 * * *' # UTC 0-9時 (JST 09:00-18:30) 30分おき
+  # schedule:
+  #   - cron: '*/30 0-9 * * *' # UTC 0-9時 (JST 09:00-18:30) 30分おき
+  # ↑ setup.sh 実行後、GOOGLE_CREDENTIALS_BASE64 / GOOGLE_TOKEN_BASE64 / GH_PAT を
+  #   GitHub Secrets に登録してからコメントアウトを外して有効化してください
   workflow_dispatch: # 手動実行を可能にする
 
 jobs:
