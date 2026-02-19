@@ -120,6 +120,7 @@ gemini
 
 ## 📚 詳細ドキュメント
 
+- [🔰 はじめてのセットアップ（非エンジニア向け）](docs/setup/00_quickstart_for_beginners.md)
 - [前提条件・環境準備](docs/setup/01_prerequisites.md)
 - [Google OAuth 設定](docs/setup/02_google_oauth.md)
 - [GitHub Project v2 設定](docs/setup/03_github_project.md)

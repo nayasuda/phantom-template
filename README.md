@@ -89,6 +89,7 @@ phantom-template/
 ## 📖 Documentation
 
 - [日本語ドキュメント (README_ja.md)](README_ja.md)
+- [🔰 Quickstart for Beginners (Japanese)](docs/setup/00_quickstart_for_beginners.md)
 - [Prerequisites & Setup](docs/setup/01_prerequisites.md)
 - [Google OAuth Setup](docs/setup/02_google_oauth.md)
 - [GitHub Project v2 Setup](docs/setup/03_github_project.md)
