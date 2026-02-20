@@ -24,6 +24,9 @@ phantom-antenna/venv/
 __pycache__/
 *.pyc
 
+# Company-specific setup (社内配布用 / 機密情報を含む可能性あり)
+setup/setup-staff.bat
+
 # Editor / OS
 *.swp
 *.bak
