@@ -99,7 +99,7 @@ if %errorlevel% neq 0 (
 )
 
 :: -------------------------------------------------------------------
-:: Step 5: テンプレートをクローン + setup.sh 実行
+:: Step 5: テンプレートをクローン
 :: -------------------------------------------------------------------
 echo.
 echo  [5/7] プロジェクトのセットアップ...
@@ -107,10 +107,29 @@ echo  [5/7] プロジェクトのセットアップ...
 wsl -d %DISTRO% -- bash -lc "if [ -d ~/%WORKSPACE_NAME%/.git ]; then echo 'リポジトリは既に存在します'; else git clone %REPO_URL% ~/%WORKSPACE_NAME% && echo 'クローン完了'; fi"
 
 echo.
-echo  セットアップウィザードを起動します。
-echo  いくつかの質問に答えてください。
+echo  ============================================
+echo   セットアップウィザード（GitHub連携）を
+echo   今実行しますか？
 echo.
-wsl -d %DISTRO% -- bash -lc "cd ~/%WORKSPACE_NAME% && bash setup.sh"
+echo   後からでも実行できます。
+echo   スキップしても、ナビとの会話や
+echo   クイーンの作戦立案は使えます。
+echo  ============================================
+echo.
+choice /c YN /m "  今すぐ実行しますか？"
+if !errorlevel! equ 1 (
+    echo.
+    echo  セットアップウィザードを起動します。
+    echo  いくつかの質問に答えてください。
+    echo.
+    wsl -d %DISTRO% -- bash -lc "cd ~/%WORKSPACE_NAME% && bash setup.sh"
+) else (
+    echo.
+    echo  スキップしました。後で実行するには:
+    echo  Ubuntu ターミナルで:
+    echo    cd ~/%WORKSPACE_NAME% ^&^& bash setup.sh
+    echo.
+)
 
 :: -------------------------------------------------------------------
 :: Step 6: 認証ガイド
