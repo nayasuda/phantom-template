@@ -27,7 +27,7 @@
 | [GitHub CLI](https://cli.github.com/) | 最新版 | GitHub 連携 |
 | [Git](https://git-scm.com/) | 最新版 | バージョン管理 |
 
-> **Windowsの方へ:** WSL2（Ubuntu 22.04）での動作を確認済みです。PowerShell ネイティブ環境は非対応です。
+> **Windowsの方へ:** WSL2（Ubuntu）での動作を確認済みです。PowerShell ネイティブ環境は非対応です。下記の [Windows 自動セットアップ](#windows-自動セットアップ) を参照してください。
 
 **必要なサービス:**
 - Google Workspace（Gmail、Google Drive、Google Tasks）
@@ -35,6 +35,16 @@
 - Gemini API キー（[こちらから取得](https://aistudio.google.com/apikey)）
 
 ### インストール手順
+
+#### Windows（自動セットアップ）
+
+`setup/setup-windows.bat` を右クリック → **「管理者として実行」** するだけ。WSL、Ubuntu、Node.js、Gemini CLI、GitHub CLI のインストールからセットアップウィザードまで自動で進みます。
+
+> **⚠️ セキュリティソフトの注意:** Norton や Windows Defender SmartScreen などのセキュリティソフトが `.bat` ファイルの実行をブロックすることがあります。その場合は:
+> 1. セキュリティソフト側で許可する、または
+> 2. 下の手動セットアップを WSL ターミナルから直接実行してください。
+
+#### Linux / macOS（手動セットアップ）
 
 ```bash
 # 1. このテンプレートをクローン

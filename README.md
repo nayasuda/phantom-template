@@ -27,7 +27,7 @@ Automate your daily operations with 10 specialized AI agents that collaborate, p
 | [GitHub CLI](https://cli.github.com/) | latest | GitHub integration |
 | [Git](https://git-scm.com/) | latest | Version control |
 
-> **Windows users:** Tested on WSL2 (Ubuntu 22.04). Native PowerShell is not supported.
+> **Windows users:** Tested on WSL2 (Ubuntu). Native PowerShell is not supported. See [Windows automated setup](#windows-automated-setup) below.
 
 **Required services:**
 - Google Workspace (Gmail, Google Drive, Google Tasks)
@@ -35,6 +35,16 @@ Automate your daily operations with 10 specialized AI agents that collaborate, p
 - Gemini API key ([Get one here](https://aistudio.google.com/apikey))
 
 ### Installation
+
+#### Windows (automated setup)
+
+Right-click `setup/setup-windows.bat` → **Run as administrator**. The script will automatically install WSL, Ubuntu, Node.js, Gemini CLI, and GitHub CLI — then walk you through the rest.
+
+> **⚠️ Security software notice:** Some antivirus software (Norton, Windows Defender SmartScreen, etc.) may block `.bat` files from running. If this happens:
+> 1. Allow the script in your security software, or
+> 2. Follow the manual setup below (Linux / macOS) using WSL terminal directly.
+
+#### Linux / macOS (manual setup)
 
 ```bash
 # 1. Clone this template
