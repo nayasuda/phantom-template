@@ -8,28 +8,28 @@ set "TEST_DISTRO=Ubuntu-24.04"
 
 echo.
 echo  ============================================
-echo   テスト環境クリーンアップ
-echo   %TEST_DISTRO% を完全に削除します
+echo   Test Environment Cleanup
+echo   Removes %TEST_DISTRO% completely
 echo  ============================================
 echo.
 
 wsl -l -q 2>nul | findstr /i "%TEST_DISTRO%" >nul 2>&1
 if %errorlevel% neq 0 (
-    echo  %TEST_DISTRO% は存在しません。
+    echo  %TEST_DISTRO% does not exist.
     pause
     exit /b 0
 )
 
-choice /c YN /m "  %TEST_DISTRO% を削除してもよいですか？"
+choice /c YN /m "  Remove %TEST_DISTRO%?"
 if %errorlevel% neq 1 (
-    echo  キャンセルしました。
+    echo  Cancelled.
     pause
     exit /b 0
 )
 
-echo  削除中...
+echo  Removing...
 wsl --unregister %TEST_DISTRO%
 echo.
-echo  %TEST_DISTRO% を削除しました。
+echo  %TEST_DISTRO% removed.
 echo.
 pause

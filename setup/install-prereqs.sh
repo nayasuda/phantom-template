@@ -21,7 +21,7 @@ echo ""
 # -------------------------------------------------------------------
 # nvm + Node.js
 # -------------------------------------------------------------------
-echo "[1/3] Node.js ..."
+echo "[1/5] Node.js ..."
 export NVM_DIR="$HOME/.nvm"
 if [ -s "$NVM_DIR/nvm.sh" ]; then
     set +u
@@ -51,7 +51,7 @@ fi
 # Gemini CLI
 # -------------------------------------------------------------------
 echo ""
-echo "[2/3] Gemini CLI ..."
+echo "[2/5] Gemini CLI ..."
 if command -v gemini &>/dev/null; then
     skip "Gemini CLI ($(gemini --version 2>/dev/null || echo 'installed'))"
 else
@@ -69,7 +69,7 @@ fi
 # GitHub CLI
 # -------------------------------------------------------------------
 echo ""
-echo "[3/3] GitHub CLI ..."
+echo "[3/5] GitHub CLI ..."
 if command -v gh &>/dev/null; then
     skip "gh $(gh --version | head -1)"
 else
@@ -85,10 +85,26 @@ else
 fi
 
 # -------------------------------------------------------------------
+# wslu (wslview: WSL から Windows ブラウザを開く)
+# -------------------------------------------------------------------
+echo ""
+echo "[4/5] wslu (wslview) ..."
+if command -v wslview &>/dev/null; then
+    skip "wslu (wslview)"
+else
+    echo "  wslu をインストール..."
+    sudo apt update -qq && sudo apt install wslu -y -qq
+    ok "wslu (wslview)"
+fi
+
+# -------------------------------------------------------------------
 # Python3 (ほぼプリインストール済み)
 # -------------------------------------------------------------------
 echo ""
-if ! command -v python3 &>/dev/null; then
+echo "[5/5] Python3 ..."
+if command -v python3 &>/dev/null; then
+    skip "Python3"
+else
     echo "Python3 をインストール..."
     sudo apt update -qq && sudo apt install python3 python3-pip -y -qq
     ok "Python3"

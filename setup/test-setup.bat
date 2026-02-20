@@ -6,13 +6,12 @@ title Phantom - Test Environment Setup
 
 echo.
 echo  ============================================
-echo   テスト環境セットアップ
-echo   ナツキ専用：クリーンな WSL 環境で
-echo   Staff Kit の動作確認を行います
+echo   Phantom Test Environment Setup
+echo   Creates a clean WSL instance for testing
 echo  ============================================
 echo.
-echo  ※ 既存の Ubuntu 環境には影響しません
-echo  ※ Ubuntu-24.04 を新規インストールします
+echo   * Your existing Ubuntu is NOT affected
+echo   * Installs Ubuntu-24.04 as a separate distro
 echo.
 
 set "TEST_DISTRO=Ubuntu-24.04"
@@ -20,37 +19,35 @@ set "TEST_DISTRO=Ubuntu-24.04"
 :: 既にテスト環境がある場合の確認
 wsl -l -q 2>nul | findstr /i "%TEST_DISTRO%" >nul 2>&1
 if %errorlevel% equ 0 (
-    echo  ⚠ %TEST_DISTRO% が既に存在します。
+    powershell -command "Write-Host '  %TEST_DISTRO% already exists.' -ForegroundColor Yellow"
     echo.
-    choice /c YN /m "  削除して再作成しますか？"
+    choice /c YN /m "  Remove and recreate?"
     if !errorlevel! equ 1 (
-        echo  %TEST_DISTRO% をアンインストール中...
+        echo  Unregistering %TEST_DISTRO%...
         wsl --unregister %TEST_DISTRO%
         echo   OK
     ) else (
-        echo  キャンセルしました。
+        echo  Cancelled.
         pause
         exit /b 0
     )
 )
 
 echo.
-echo  %TEST_DISTRO% をインストールします...
+echo  Installing %TEST_DISTRO%...
 wsl --install -d %TEST_DISTRO%
 echo.
-echo  ユーザー設定が終わったら exit して
-echo  戻ってきてください。
+powershell -command "Write-Host '  Set username/password, then type exit' -ForegroundColor Cyan"
 pause
 
 echo.
-echo  テストモードでセットアップを実行します...
+echo  Running setup in test mode...
 call "%~dp0setup-windows.bat" --test
 
 echo.
 echo  ============================================
-echo   テスト完了！
-echo   テスト環境を削除するには
-echo   test-cleanup.bat を実行してください。
+echo   Test complete!
+echo   Run test-cleanup.bat to remove test env.
 echo  ============================================
 echo.
 pause
