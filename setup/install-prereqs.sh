@@ -24,7 +24,9 @@ echo ""
 echo "[1/3] Node.js ..."
 export NVM_DIR="$HOME/.nvm"
 if [ -s "$NVM_DIR/nvm.sh" ]; then
+    set +u
     source "$NVM_DIR/nvm.sh"
+    set -u
 fi
 
 if command -v node &>/dev/null; then
@@ -34,10 +36,14 @@ else
         echo "  nvm をインストール..."
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
         export NVM_DIR="$HOME/.nvm"
+        set +u
         source "$NVM_DIR/nvm.sh"
+        set -u
     fi
+    set +u
     nvm install --lts
     nvm use --lts
+    set -u
     ok "Node.js $(node -v)"
 fi
 
