@@ -28,7 +28,7 @@ if "%~1"=="--test" (
 :: -------------------------------------------------------------------
 :: Step 1: 管理者権限チェック
 :: -------------------------------------------------------------------
-echo  [1/7] Checking admin privileges...
+echo  [1/5] Checking admin privileges...
 net session >nul 2>&1
 if %errorlevel% neq 0 (
     echo.
@@ -44,7 +44,7 @@ echo   OK
 :: Step 2: WSL の確認・インストール
 :: -------------------------------------------------------------------
 echo.
-echo  [2/7] Checking WSL...
+echo  [2/5] Checking WSL...
 wsl --status >nul 2>&1
 if %errorlevel% neq 0 (
     echo   Installing WSL...
@@ -64,7 +64,7 @@ echo   OK
 :: Step 3: Ubuntu ディストロの確認・インストール
 :: -------------------------------------------------------------------
 echo.
-echo  [3/7] Checking %DISTRO%...
+echo  [3/5] Checking %DISTRO%...
 wsl -l -q 2>nul | findstr /i "%DISTRO%" >nul 2>&1
 if %errorlevel% neq 0 (
     echo   Installing %DISTRO%...
@@ -80,8 +80,8 @@ echo   OK
 :: Step 4: WSL内の前提ツールをインストール
 :: -------------------------------------------------------------------
 echo.
-echo  [4/7] Installing tools in WSL...
-echo   (Node.js, Gemini CLI, GitHub CLI)
+echo  [4/5] Installing tools in WSL...
+echo   (Node.js, Gemini CLI, GitHub CLI, wslu)
 echo.
 
 set "PREREQS_WIN=%~dp0install-prereqs.sh"
@@ -96,53 +96,12 @@ if %errorlevel% neq 0 (
 )
 
 :: -------------------------------------------------------------------
-:: Step 5: テンプレートをクローン
+:: Step 5: テンプレートをクローン + ショートカット作成
 :: -------------------------------------------------------------------
 echo.
-echo  [5/7] Cloning project...
+echo  [5/5] Setting up project...
 
 wsl -d %DISTRO% -- bash -lc "if [ -d ~/%WORKSPACE_NAME%/.git ]; then echo 'Already cloned.'; else git clone %REPO_URL% ~/%WORKSPACE_NAME% && echo 'Clone complete.'; fi"
-
-echo.
-echo  ============================================
-echo   Run setup wizard (GitHub integration)?
-echo   You can skip and do it later.
-echo   Navi and Queen work without it.
-echo  ============================================
-echo.
-choice /c YN /m "  Run now?"
-if !errorlevel! equ 1 (
-    echo.
-    wsl -d %DISTRO% -- bash -lc "cd ~/%WORKSPACE_NAME% && bash setup.sh"
-) else (
-    echo.
-    echo   Skipped. Run later:
-    echo     cd ~/%WORKSPACE_NAME% ^&^& bash setup.sh
-    echo.
-)
-
-:: -------------------------------------------------------------------
-:: Step 6: 認証ガイド
-:: -------------------------------------------------------------------
-echo.
-echo  [6/7] Authentication
-echo.
-
-:: Gemini CLI 認証（初回起動時に自動で走るのでスキップ可）
-echo  --- Auth 1/2: Gemini CLI ---
-powershell -command "Write-Host '  Gemini auth runs on first launch. Skipping.' -ForegroundColor Cyan"
-echo.
-
-:: GitHub CLI 認証
-echo  --- Auth 2/2: GitHub ---
-wsl -d %DISTRO% -- bash -lc "gh auth status 2>/dev/null && echo 'GitHub: OK' || (echo 'Log in to GitHub:' && gh auth login -h github.com -p https -w)"
-echo.
-
-:: -------------------------------------------------------------------
-:: Step 7: ショートカット作成
-:: -------------------------------------------------------------------
-echo.
-echo  [7/7] Creating desktop shortcuts...
 
 :: デスクトップパスを正確に取得（日本語Windows / OneDrive対応）
 for /f "delims=" %%i in ('powershell -command "[Environment]::GetFolderPath('Desktop')"') do set "DESKTOP=%%i"
@@ -169,14 +128,15 @@ if not exist "!DESKTOP!\Phantom Update.bat" (
 echo   OK
 
 :: -------------------------------------------------------------------
-:: 完了
+:: 完了 → そのまま Phantom を起動
 :: -------------------------------------------------------------------
 echo.
 echo  ============================================
 echo    Setup complete!
 echo.
-echo    Double-click "Phantom" on your desktop
-echo    to start.
+echo    Launching Phantom...
+echo    Navi will guide you through the rest.
 echo  ============================================
 echo.
-pause
+
+wsl -d %DISTRO% -- bash ~/%WORKSPACE_NAME%/start.sh
