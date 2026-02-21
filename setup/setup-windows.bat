@@ -152,26 +152,17 @@ if not exist "!DESKTOP!" (
 )
 
 if not exist "!DESKTOP!\Phantom.bat" (
-    (
-        echo @echo off
-        echo chcp 65001 ^> nul 2^>^&1
-        echo title Phantom
-        echo wsl -d %DISTRO% -- bash -lc "cd ~/%WORKSPACE_NAME% ^&^& gemini"
-    ) > "!DESKTOP!\Phantom.bat"
+    > "!DESKTOP!\Phantom.bat" echo @echo off
+    >> "!DESKTOP!\Phantom.bat" echo title Phantom
+    >> "!DESKTOP!\Phantom.bat" echo wsl -d %DISTRO% -- bash ~/%WORKSPACE_NAME%/start.sh
     echo   Created: Phantom.bat
 )
 
 if not exist "!DESKTOP!\Phantom Update.bat" (
-    (
-        echo @echo off
-        echo chcp 65001 ^> nul 2^>^&1
-        echo title Phantom Update
-        echo echo Updating Phantom...
-        echo wsl -d %DISTRO% -- bash -lc "cd ~/%WORKSPACE_NAME% ^&^& git pull origin main --ff-only"
-        echo echo.
-        echo echo Done!
-        echo pause
-    ) > "!DESKTOP!\Phantom Update.bat"
+    > "!DESKTOP!\Phantom Update.bat" echo @echo off
+    >> "!DESKTOP!\Phantom Update.bat" echo title Phantom Update
+    >> "!DESKTOP!\Phantom Update.bat" echo wsl -d %DISTRO% -- bash ~/%WORKSPACE_NAME%/update.sh
+    >> "!DESKTOP!\Phantom Update.bat" echo pause
     echo   Created: Phantom Update.bat
 )
 
