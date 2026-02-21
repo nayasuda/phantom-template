@@ -48,16 +48,17 @@ else
 fi
 
 # -------------------------------------------------------------------
-# Gemini CLI
+# Gemini CLI (Windows PATH の gemini を誤検知しないよう npm prefix で確認)
 # -------------------------------------------------------------------
 echo ""
 echo "[2/5] Gemini CLI ..."
-if command -v gemini &>/dev/null; then
-    skip "Gemini CLI ($(gemini --version 2>/dev/null || echo 'installed'))"
+NVM_GEMINI="$(npm prefix -g 2>/dev/null)/bin/gemini"
+if [ -x "$NVM_GEMINI" ]; then
+    skip "Gemini CLI (nvm)"
 else
     echo "  Gemini CLI をインストール..."
     npm install -g @google/gemini-cli
-    if command -v gemini &>/dev/null; then
+    if [ -x "$NVM_GEMINI" ]; then
         ok "Gemini CLI"
     else
         echo "  ⚠ Gemini CLI の自動インストールに失敗しました"
