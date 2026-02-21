@@ -28,7 +28,7 @@
           "model": "gemini-3-flash-preview",
           "generateContentConfig": {
             "thinkingConfig": {
-              "thinkingLevel": "high"
+              "thinkingLevel": "medium"
             },
             "temperature": 0.1
           }
